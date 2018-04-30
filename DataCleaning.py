@@ -27,7 +27,8 @@ def quoteRemover(string):
 def blacklist(string):
     # TODO Links https<- kill
     # " <-
-    blacklistedWords = ["greetz", "[quote]", "[/quote]", "edge", "\\n", "\\r", "*", "\"", "\\", "//", "/", "[i]", ":-D", ":D", ":)", ";)", ":-)", ";-)", ":(", ":-(", "[b]", ">", "<"]    for x in range(len(blacklistedWords)):
+    blacklistedWords = ["greetz", "[quote]", "[/quote]", "edge", "\\n", "\\r", "*", "\"", "\\", "//", "/", "[i]", ":-D", ":D", ":)", ";)", ":-)", ";-)", ":(", ":-(", "[b]", ">", "<"]
+    for x in range(len(blacklistedWords)):
         string = str(string).replace(blacklistedWords[x],"")
     return string
 
