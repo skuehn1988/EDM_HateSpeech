@@ -5,7 +5,7 @@ import csv
 
 
 
-input_file = "/Users/banana/Desktop/input_utf8.csv"
+input_file = "/Users/banana/Desktop/input 2.csv"
 output_file = "/Users/banana/Desktop/output_utf8_small.csv"
 toxic_counter = 0
 nontoxic_counter = 0
@@ -56,20 +56,40 @@ def writeToFile(writer, id, content, deleted):
     writer.writerow([id, content, deleted])
 
 
+
 with open(input_file, "r", encoding="utf-8") as csvfile:
     output_file = open(output_file, "w", encoding="utf-8")
     writer = csv.writer(output_file)
     reader = csv.DictReader(csvfile)
     data = [row for row in reader]
     id = 0
+    truth = 500
+    false = 500
     for row in data:
-        content = row["content"]
-        deleted = row["deleted"]
-        if(str(content).find("quote")):
-            content = quoteRemover(content)
-        print([id, content, deleted])
-        writeToFile(writer, id, content, deleted)
-        id = id +1
-    output_file.close()
-    exit()
+        if(row["deleted"] == "FALSE" and false >= 0 or row["deleted"] == "False" and false >= 0):
+            false = false-1
+            content = row["content"]
+            deleted = row["deleted"]
+            if(str(content).find("quote")):
+                content = quoteRemover(content)
+            print([id, content, deleted])
+            writeToFile(writer, id, content, deleted)
+            id = id +1
+
+
+        if(row["deleted"] == "TRUE" and truth >= 0 or row["deleted"] == "True" and truth >= 0):
+            truth = truth-1
+            content = row["content"]
+            deleted = row["deleted"]
+            if(str(content).find("quote")):
+                content = quoteRemover(content)
+            print([id, content, deleted])
+            writeToFile(writer, id, content, deleted)
+            id = id +1
+        if(truth == 0 and false == 0):
+            output_file.close()
+            exit()
+        else:
+            print("truth : ", truth)
+            print("false : ", false)
 
